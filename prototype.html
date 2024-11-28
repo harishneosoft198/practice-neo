@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototype Concept</title>
+</head>
+<body>
+    <script>
+        //Prototype :- It is a keyword used to add any property or methods in our objects later on as per the requirement.
+
+        function Person(){
+             this.name="Harish";
+         }
+         Person.prototype.age=23;
+        var p1=new Person();
+        p1.gender = "male";
+        var p2=new Person();
+        console.log(p1.age);
+        console.log(p2.age);
+        console.log(p2.gender);// undefined because gender added in p1 instance not in p2. to resolve this we have prototype concept.
+        Person.prototype.gender = "Male";
+        console.log(p2.gender);
+        function Car(){
+            this.speed=100;
+        }
+        Car.prototype.acc=function(){
+            this.speed+=50;
+        }
+        Car.prototype.checkspeed=function(){
+            console.log("The speed is "+this.speed);
+        }
+        var obj=new Car();
+        obj.checkspeed();//100 
+        obj.acc();//+50
+        obj.checkspeed();//150
+    </script>
+</body>
+</html>

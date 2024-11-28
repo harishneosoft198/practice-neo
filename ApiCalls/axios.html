@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>axios Calling</title>
+    <script src="js/axios.js"></script>
+</head>
+<body>
+    <h1>Axios Calling</h1>
+    <script type="text/javascript">
+        async function getUser() {
+            try {
+                const response = await axios.get('https://jsonplaceholder.typicode.com/todos/10');
+                console.log(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        getUser();
+    </script>
+</body>
+</html>

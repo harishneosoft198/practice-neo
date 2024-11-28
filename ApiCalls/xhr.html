@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XHR Api Calling</title>
+</head>
+<body>
+    <h1>XHR api calling</h1>
+    <script type="text/javascript">
+        var xhr = new XMLHttpRequest();
+        // console.log(xhr)
+        xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos/10', true)
+        xhr.send()
+
+        xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            // Request was successful, handle the response data here
+            console.log(xhr.response);
+        } else {
+            // Request failed with status code other than 2xx
+            console.error('Request failed with status: ' + xhr.status);
+        }
+        };
+
+    </script>
+</body>
+</html>

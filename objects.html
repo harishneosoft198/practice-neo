@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objects</title>
+</head>
+<body>
+    <script>
+        var obj={
+            fname:"Harish",
+            lname:"Krishnapuram",
+            fullname:function(){
+                return this.fname+" "+this.lname;
+            }
+        }
+        console.log(obj.fname);
+        console.log(obj.fullname());
+        var obj=new Object();
+        obj.fname="Arjun";
+        obj.lname="Krishnapuram";
+        obj.fullname=function(){
+            return this.fname+" "+this.lname;
+        }
+        obj.firstName = function(){
+            return this.fname;
+        }
+        console.log(obj.fullname());
+        console.log(obj.firstName());
+        //constructor function
+        function Person(fname,lname){
+           this.fname=fname;
+           this.lname=lname;
+           this.fullname=function(){
+               return this.fname+" "+this.lname;
+           }
+       }
+       var person=new Person("Anjali","Krishnapuram");
+       console.log(person.fname);
+       console.log(person.fullname());
+    </script>
+</body>
+</html>

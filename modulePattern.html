@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module Pattern</title>
+</head>
+<body>
+    <script>
+        //Module Pattern :- commanly used design pattern (IIFE :- Immediatly Invoked Function Expression)
+        //execute without calling the function
+        var cal=function(){
+               return {
+                   add:function(a,b){
+                       return (a+b)
+                   },
+                   sub:function(a,b){
+                       return (a-b)
+                   }
+               }
+           }();
+           console.log(cal.add(3,4));
+           console.log(cal.sub(10,3));
+    </script>
+</body>
+</html>
