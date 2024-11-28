@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Time Out</title>
+    <style>
+        #color{
+            height: 40px;
+            width: 40px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="color">
+        COLOR
+    </div>
+    <script type="text/javascript">
+        const color  = document.getElementById('color');
+        let timerId = setTimeout(changeBg,2000);
+        function changeBg(){
+            color.style.background = 'green';
+            clearInterval(timerId);
+        }
+    </script>
+</body>
+</html>

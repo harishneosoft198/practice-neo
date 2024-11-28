@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        article {
+        position: relative;
+        margin: 0 auto 3rem auto;
+        width: 400px;
+        height: 400px;
+        border: 1px dashed red;
+        box-sizing:border-box;
+        }
+        #target {
+        border: 1px solid black;
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <article>
+        <div id="target">
+        </div>
+    </article>
+    <div>
+        Read the blog post at <a href="https://turriate.com/articles/how-to-pinch-to-zoom-2-finger-pan-fabricjs-canvas">https://turriate.com/articles/how-to-pinch-to-zoom-2-finger-pan-fabricjs-canvas</a>
+    </div>
+    <script>
+        var target = document.querySelector("#target")
+window.addEventListener("wheel", function(e){
+  e.preventDefault();
+  if (e.ctrlKey) {
+    console.log("pinch", e.deltaY)
+    var width = getStyleInt(target, "width")
+    var newWidth = width - e.deltaY
+    setStyleInt(target, "width", newWidth)
+    setStyleInt(target, "height", newWidth)
+  } else {
+    console.log("pan", e.deltaX, e.deltaY)
+    var x = getStyleInt(target, "left")
+    setStyleInt(target, "left", x-e.deltaX)
+    var y = getStyleInt(target, "top")
+    setStyleInt(target, "top", y-e.deltaY)
+  }
+}, {passive: false})
+
+function getStyleInt(target, key) {
+  var val = getComputedStyle(target)[key];
+  return parseInt(val, 10)
+}
+
+function setStyleInt(target, key, val) {
+  target.style[key] = val+"px"
+}
+    </script>
+</body>
+</html>

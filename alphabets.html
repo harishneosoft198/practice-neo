@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+</head>
+<body>
+    <h1>You can enter only alphabets.</h1>
+    <form>
+        <input type="text" onfocus="this.scrollIntoView({behavior:'smooth',block:'center'});"
+        onkeypress="return (((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)|| (event.charCode==32)) || (this.value.length > 10))"
+        onkeyup="this.value=this.value.slice(0,this.maxLength)"
+        
+        required="true"
+        maxlength="10"
+        minlength="10" style="border:1px solid goldenrod;padding:5px 10px;"/>
+    </form>
+</body>
+</html>

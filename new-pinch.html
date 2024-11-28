@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinch and Zoom</title>
+    <style>
+        #zoomableImage {
+            /* width: 100px; */
+            /* max-width: 100%; */
+            touch-action: none; /* Disable browser's default touch gestures */
+        }
+    </style>
+</head>
+<body>
+    <img id="zoomableImage" src="nature_image.jpg" alt="Zoomable Image">
+    
+    <script>
+        const image = document.getElementById('zoomableImage');
+        let initialScale = 1;
+        let currentScale = 1;
+        let initialDistance = 1;
+
+        image.addEventListener('touchstart', handleTouchStart);
+        image.addEventListener('touchmove', handleTouchMove);
+        image.addEventListener('touchend', handleTouchEnd);
+        image.addEventListener('click',function(){
+            console.log('clicked')
+        });
+
+        function handleTouchStart(event) {
+            if (event.touches.length === 2) {
+                // Calculate the initial distance between two touch points
+                const touch1 = event.touches[0];
+                const touch2 = event.touches[1];
+                initialDistance = Math.hypot(touch2.clientX - touch1.clientX, touch2.clientY - touch1.clientY);
+                initialScale = currentScale;
+            }
+        }
+
+        function handleTouchMove(event) {
+            if (event.touches.length === 2) {
+                // Calculate the current distance between two touch points
+                const touch1 = event.touches[0];
+                const touch2 = event.touches[1];
+                const currentDistance = Math.hypot(touch2.clientX - touch1.clientX, touch2.clientY - touch1.clientY);
+
+                // Calculate the new scale factor
+                currentScale = (currentDistance / initialDistance) * initialScale;
+
+                // Apply scaling to the image
+                image.style.transform = `scale(${currentScale})`;
+                image.alt = currentScale
+            }
+        }
+
+        function handleTouchEnd(event) {
+            if (event.touches.length < 2) {
+                // Reset initial values when touches end
+                initialScale = 1;
+                initialDistance = 1;
+                // console.log('yes')
+            }
+        }
+    </script>
+</body>
+</html>

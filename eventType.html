@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Type</title>
+</head>
+<body>
+    <button onclick="findOutEvent(event)">Find out event type</button>
+    <p id="para">
+        Text getting frominner html
+        <span>Text</span>
+    </p>
+    <script type="text/javascript">
+        function findOutEvent(e){
+            console.log(e);
+        }
+        let para = document.getElementById('para');
+        console.log(para.innerHTML);
+    </script>
+    <div class="p6 pA t4 r4 bgF aiC jcC dF brp50" onclick="removeFromWishList(this,'20565003')">
+        <svg viewBox="0 0 24 24" class="w20 h20 brp50 bdP cP"><use xlink:href="#an-cros"></use></svg>
+    </div>
+</body>
+</html>

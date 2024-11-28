@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .corner-borders {
+      width: 200px;
+      height: 150px;
+      background-color: #f0f0f0;
+      position: relative;
+    }
+
+    .corner-borders::before,
+    .corner-borders::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #333;
+    }
+
+    .corner-borders::before {
+      top: 0;
+      left: 0;
+      border-radius: 50% 0 0 0;
+    }
+
+    .corner-borders::after {
+      top: 0;
+      right: 0;
+      border-radius: 0 50% 0 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="corner-borders"></div>
+</body>
+</html>

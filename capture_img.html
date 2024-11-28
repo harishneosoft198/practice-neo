@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    *{
+      box-sizing: border-box;
+    }
+    #video {
+      width: 100%;
+      /* max-width: 400px; */
+      margin-bottom: 10px;
+    }
+
+    #canvas {
+      display: none;
+    }
+  </style>
+  <title>Camera Capture</title>
+</head>
+<body>
+  <h1>Camera Capture</h1>
+
+  <video id="video" playsinline autoplay></video>
+  <button id="captureBtn">Capture Image</button>
+  <canvas id="canvas"></canvas>
+  <img id="capturedImage" alt="Captured Image">
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const video = document.getElementById('video');
+      const canvas = document.getElementById('canvas');
+      const capturedImage = document.getElementById('capturedImage');
+      const captureBtn = document.getElementById('captureBtn');
+      let stream;
+
+      // Get user media (camera)
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function (mediaStream) {
+          video.srcObject = mediaStream;
+          stream = mediaStream;
+        })
+        .catch(function (error) {
+          console.error('Error accessing camera:', error);
+        });
+
+      // Capture image
+      captureBtn.addEventListener('click', function () {
+        const context = canvas.getContext('2d');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        // const capturedImage = canvas.toDataURL('image/png');
+        const dataURL = canvas.toDataURL('image/png');
+        // Display the captured image
+        capturedImage.src = dataURL;
+        capturedImage.style.display = 'block';
+
+        // Display or further process the capturedImage as needed
+        // console.log('Captured Image:', typeof(capturedImage));
+      });
+
+      // Stop the camera stream when the user leaves the page
+      window.addEventListener('beforeunload', function () {
+        if (stream) {
+          const tracks = stream.getTracks();
+          tracks.forEach(track => track.stop());
+        }
+      });
+    });
+  </script>
+</body>
+</html>

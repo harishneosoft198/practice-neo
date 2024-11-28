@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pinch Zoom Demo</title>
+  <!-- Hammer.js CDN Link -->
+  <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
+  <style>
+    /* Set a fixed height for the container to enable scrolling */
+    .zoom-container {
+      height: 400px;
+      overflow: hidden;
+    }
+
+    /* Center the image inside the container */
+    .zoom-container img {
+      display: block;
+      margin: auto;
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="zoom-container">
+    <!-- Add id="zoomable-image" to the image element for easy selection -->
+    <img id="zoomable-image" src="https://via.placeholder.com/800" alt="Zoomable Image">
+  </div>
+
+  <script>
+    // Wait for the DOM to be ready
+    document.addEventListener('DOMContentLoaded', function () {
+      // Select the zoomable image element
+      var zoomableImage = document.getElementById('zoomable-image');
+
+      // Initialize Hammer.js with the zoom and pan recognizers
+      var hammertime = new Hammer(zoomableImage, {
+        recognizers: [
+          [Hammer.Pinch, { enable: true }],
+          [Hammer.Pan, { enable: true, direction: Hammer.DIRECTION_ALL }]
+        ]
+      });
+
+      // Set initial scale and position variables
+      var scale = 1,
+        posX = 0,
+        posY = 0,
+        lastPosX = 0,
+        lastPosY = 0,
+        lastScale = 1,
+        maxPosX = 0,
+        maxPosY = 0;
+
+      // Subscribe to pinch and pan events
+      hammertime.on('pinch pan panend pinchend', function (ev) {
+        if (ev.type === 'pinch') {
+          // Update the scale factor during pinch
+          scale = Math.max(1, Math.min(lastScale * ev.scale, 3));
+        }
+
+        if (ev.type === 'pan' || ev.type === 'panend') {
+          // Update the image position during pan
+          posX = Math.max(maxPosX, Math.min(lastPosX + ev.deltaX, maxPosX + 100));
+          posY = Math.max(maxPosY, Math.min(lastPosY + ev.deltaY, maxPosY + 100));
+        }
+
+        if (ev.type === 'pinchend') {
+          // Store the final scale for the next pinch event
+          lastScale = scale;
+        }
+
+        if (ev.type === 'panend') {
+          // Store the final position for the next pan event
+          lastPosX = posX < maxPosX ? maxPosX : posX;
+          lastPosY = posY < maxPosY ? maxPosY : posY;
+        }
+
+        // Apply the transformation to the image
+        zoomableImage.style.transform = 'translate3d(' + posX + 'px,' + posY + 'px,0) scale(' + scale + ')';
+      });
+
+      // Set the maximum allowed position values
+      function updateMaxPosition() {
+        maxPosX = Math.max(0, (scale - 1) * zoomableImage.clientWidth / 2);
+        maxPosY = Math.max(0, (scale - 1) * zoomableImage.clientHeight / 2);
+      }
+
+      // Update maximum position values on image load and window resize
+      zoomableImage.onload = updateMaxPosition;
+      window.addEventListener('resize', updateMaxPosition);
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Scanner</title>
+  <style>
+    #qr-video {
+      width: 100%;
+      max-width: 400px;
+      margin: 20px auto;
+    }
+    #result {
+      margin: 20px auto;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>QR Code Scanner</h1>
+  <div id="qr-video-container">
+    <video id="qr-video" playsinline autoplay></video>
+  </div>
+  <div id="result"></div>
+  <button id="start-scan">Start Scan</button>
+
+  <script src="https://unpkg.com/@zxing/library@latest"></script>
+  <script src="script.js"></script>
+  
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History push State</title>
+</head>
+<body>
+    <p>Fake history</p>
+    <button onclick="fakeStory()">Store Fake history</button>
+    <script>
+        // window.history.deleteAll()
+        function fakeStory(){
+            window.history.pushState(null,null,'/getFormData.html')
+            window.history.pushState(null,null,'/history.html')
+            // history.replaceState('/history.html')
+        }
+        window.onpopstate = (event) => {
+            console.log(
+                `location: ${document.location}, state: ${JSON.stringify(event.state)}`,
+            );
+            location.reload();
+        };
+    </script>
+</body>
+</html>

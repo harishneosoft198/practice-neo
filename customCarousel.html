@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Carousel</title>
+    <style>
+        *{
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.carousel {
+  overflow: auto;
+  /* overflow-x: auto; */
+  /* overflow-y:hidden; */
+  width: 500px;
+  height: 500px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, .3);
+  border-radius: 5px;
+  position: relative;
+}
+
+.image-container {
+  display: flex;
+ transition: transform 300ms linear;
+ transform: translateX(0);
+ /* overflow-x: auto; */
+ overflow: hidden;
+}
+
+img {
+  /* width:500px; */
+  height: 500px;
+  object-fit: cover;
+  min-width: 100%;
+}
+
+.star{
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 10px;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+  background-color: #eeeeee;
+
+}
+.star.active{
+  background-color: red;
+}
+button{
+  cursor: pointer;
+  position: relative;
+  font-size: 18px;
+  transition: 0.6s ease;
+  user-select: none;
+  height: 50px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  top: calc(50% - 25px);
+}
+button:hover {
+  background-color: rgba(0,0,0,0.8);
+};
+
+button.left {
+  border-radius: 3px 0 0 3px;
+  right: 0;
+}
+button.left {
+  border-radius: 3px 0 0 3px;
+  left: 0;
+}
+    </style>
+</head>
+<body>
+    <button id="left">&#10094;</button>
+  <button id="right">&#10095;</button>
+
+  <div class="carousel" id="carousel">
+    <div class="image-container" id="imgs" >
+      <img src="images/photo-1516026672322-bc52d61a55d5.avif" alt="">
+      <img src="images/photo-1572850005109-f4ac7529bf9f.avif" alt="">
+      <img src="https://images.unsplash.com/photo-1573081586928-127ecc7948b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="">
+      <img src="https://images.unsplash.com/flagged/photo-1572850005109-f4ac7529bf9f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="">
+    </div>
+  </div>
+  <script type="text/javascript">
+    const images = document.getElementById('imgs');
+    const allImages = document.querySelectorAll('#imgs img');
+    const leftBtn = document.getElementById('left');
+    const rightBtn = document.getElementById('right');
+    const carousel = document.getElementById('carousel');
+    let index = 0;
+
+    leftBtn.addEventListener('click',function(){
+      if(index > 0){
+        index--
+        run()
+      }
+    })
+    rightBtn.addEventListener('click',function(){
+      if(index>=0 && index<allImages.length - 1){
+        index++
+        run()
+      }
+      
+    })
+
+
+    function run() {
+      const dots = [...document.getElementsByClassName('star')];
+      // console.log(dots.length)
+
+      if (index > allImages.length - 1) {
+        index = 0
+      }
+      // console.log(index)
+      dots.forEach((dot, i) => {
+        // console.log('running')
+        if (dot.classList.contains('active')) dot.classList.remove('active');
+        if (i === index) dot.classList.add('active')
+      });
+      images.style.transform = `translateX(${-index * 500}px)`
+    }
+
+    const dot = allImages.forEach((value,i) => {
+      const elem = document.createElement('div');
+      elem.classList.add('star');
+      elem.dataset.count = i
+      document.body.appendChild(elem)
+    })
+
+    let dots = [...document.getElementsByClassName('star')];
+    dots.forEach((dot,i)=>{
+      dot.addEventListener('click',function(){
+        let dotIndex = parseInt(dot.dataset.count)
+        index = dotIndex
+        run();
+      })
+    })
+
+    images.addEventListener('scroll',function(e){
+      let currPos = e.target.scrollLeft
+      let currIndex = Math.floor(currPos/500)
+      index = currIndex
+      // console.log(index)
+      run()
+    })
+    run()
+// let x = setInterval(run, 2000);
+
+// images.onmouseover = () => {
+//   clearInterval(x)
+// }
+// images.onmouseout = () => {
+//   x = setInterval(run, 2000);
+// }
+  </script>
+</body>
+</html>

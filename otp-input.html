@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OTP Input Component</title>
+  <style>
+    .otp-input {
+      display: inline-flex;
+    }
+    .otp-input input {
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      margin: 0 5px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div id="otpContainer" class="otp-input">
+    <input type="text" maxlength="1" id="digit1" onkeyup="handleInput(this, event, 'digit2')">
+    <input type="text" maxlength="1" id="digit2" onkeyup="handleInput(this, event, 'digit3')" onkeydown="handleBack(this, event, 'digit1')">
+    <input type="text" maxlength="1" id="digit3" onkeyup="handleInput(this, event, 'digit4')" onkeydown="handleBack(this, event, 'digit2')">
+    <input type="text" maxlength="1" id="digit4" onkeyup="handleInput(this, event, null)" onkeydown="handleBack(this, event, 'digit3')">
+  </div>
+
+  <script>
+    function handleInput(input, event, nextInputId) {
+      const maxLength = parseInt(input.getAttribute('maxlength'));
+      const currentLength = input.value.length;
+
+      if (currentLength >= maxLength) {
+        if (nextInputId) {
+          const nextInput = document.getElementById(nextInputId);
+          if (nextInput) {
+            nextInput.focus();
+          }
+        } else {
+          input.blur();
+        }
+      }
+    }
+
+    function handleBack(input, event, prevInputId) {
+      if (event.key === 'Backspace' && input.value === '') {
+        const prevInput = document.getElementById(prevInputId);
+        if (prevInput) {
+          prevInput.focus();
+        }
+      }
+    }
+
+    function handlePaste(event) {
+      event.preventDefault(); // Prevent default paste behavior
+        console.log('harish')
+      const clipboardData = event.clipboardData || window.clipboardData;
+      console.log(clipboardData);
+      const pastedData = clipboardData.getData('text').trim();
+
+      if (pastedData.length === 0 || pastedData.length > 4) return;
+
+      const digits = pastedData.split('');
+
+      // Populate input fields with pasted data
+      const inputs = document.getElementsByClassName('otp-input')[0].getElementsByTagName('input');
+      let currentIndex = 0;
+      for (let i = 0; i < inputs.length; i++) {
+        if (digits[currentIndex]) {
+          inputs[i].value = digits[currentIndex];
+          handleInput(inputs[i], inputs[i + 1] ? inputs[i + 1].id : null);
+          currentIndex++;
+        } else {
+          break;
+        }
+      }
+    }
+  </script>
+</body>
+</html>

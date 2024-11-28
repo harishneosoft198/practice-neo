@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated placeholder</title>
+    <style>
+        .input-ctr{
+            position: relative;
+        }
+        .input-ctr input{
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: #000;
+            font-size: 16px;
+            padding-left: 5px;
+        }
+        .input-ctr label{
+            position: absolute;
+            left: 5px;
+            top: 0;
+            z-index: 1;
+            font-size: 16px;
+            color: grey;
+        }
+        label {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation: 
+    typing 1.8s steps(40, end);
+    animation-iteration-count: infinite;
+  animation-direction: alternate; 
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 50% }
+}
+
+    </style>
+</head>
+<body>
+    <div class="input-ctr">
+        <label for="input" id="label">9441*****</label>
+        <input type="text" id="input" maxlength="10"/>
+    </div>
+    <script type="text/javascript">
+        let input = document.getElementById("input");
+        
+        input.oninput = function(){
+            
+        }
+    </script>
+</body>
+</html>

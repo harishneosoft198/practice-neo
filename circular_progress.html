@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circular Progress Bar</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        :root {
+        --progress-bar-width: 55px;
+        --progress-bar-height: 55px;
+        --font-size: 2rem;
+        }
+        .circular-progress {
+        width: var(--progress-bar-width);
+        height: var(--progress-bar-height);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+        .inner-circle {
+        position: absolute;
+        width: calc(var(--progress-bar-width) - 15px);
+        height: calc(var(--progress-bar-height) - 15px);
+        border-radius: 50%;
+        background-color: #9d9d9d;
+        }
+        .percentage {
+        position: relative;
+        font-size: var(--font-size);
+        color: rgb(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="circular-progress" data-inner-circle-color="lightgrey" data-percentage="25" data-progress-color="#9c3" data-bg-color="#9d9d9d">
+        <div class="inner-circle"></div>
+        <p class="percentage"></p>
+    </div>
+    <script>
+const circularProgress = document.querySelectorAll(".circular-progress");
+
+Array.from(circularProgress).forEach((progressBar) => {
+  const progressValue = progressBar.querySelector(".percentage");
+  const innerCircle = progressBar.querySelector(".inner-circle");
+  let startValue = 0,
+    endValue = Number(progressBar.getAttribute("data-percentage")),
+    speed = 50,
+    progressColor = progressBar.getAttribute("data-progress-color");
+
+  const progress = setInterval(() => {
+    startValue++;
+    // progressValue.textContent = `${startValue}%`;
+    // progressValue.style.color = `${progressColor}`;
+
+    innerCircle.style.backgroundColor = `${progressBar.getAttribute(
+      "data-inner-circle-color"
+    )}`;
+
+    progressBar.style.background = `conic-gradient(${progressColor} ${
+      startValue * 3.6
+    }deg,${progressBar.getAttribute("data-bg-color")} 0deg)`;
+    if (startValue === endValue) {
+      clearInterval(progress);
+    }
+  }, speed);
+});
+    </script>
+</body>
+</html>

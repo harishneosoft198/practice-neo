@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Continuous Text Scrolling</title>
+<style>
+  .container {
+    width: 300px; /* Adjust width as needed */
+    border: 1px solid #000; /* Just for visualization */
+    overflow: hidden; /* Hides overflowing text */
+    position: relative; /* Needed for absolute positioning */
+  }
+
+  .marquee {
+    position: absolute;
+    white-space: nowrap; /* Prevents text from wrapping */
+    animation: marquee 10s linear infinite;
+  }
+
+  @keyframes marquee {
+    from {
+        transform: translateX(-50%);
+    }
+    to {
+        transform: translateX(0);
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="marquee">
+    Your text goes here, it will continuously move from right to left. <!-- Text to be duplicated -->
+  </div>
+  <div class="marquee">
+    Your text goes here, it will continuously move from right to left. <!-- Duplicate text -->
+  </div>
+</div>
+
+</body>
+</html>

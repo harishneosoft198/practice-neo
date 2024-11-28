@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Data</title>
+</head>
+<body>
+    <form id="myForm" action="https://www.google.com">
+        <input type="text" name="firstname"/>
+        <input type="number" name="mobilenum"/>
+    </form>
+    <button id="submitBtn">Submit Form</button>
+
+    <script type="text/javascript">
+        const form = document.getElementById('myForm')
+        const submitBtn = document.getElementById('submitBtn')
+
+        function getFormData(){
+            formData = new FormData(form)
+            var obj = {};
+            formData.forEach(function (v, k) {
+                obj[k] = v;
+            });
+            return obj;
+        }
+        // form.addEventListener('submit',function(e){
+        //     e.preventDefault()
+        //     const data = getFormData()
+        //     console.log(data)
+        // })
+        submitBtn.addEventListener('click',function(){
+            const data = getFormData()
+            // console.log(data)
+            form.submit();
+        })
+    </script>
+</body>
+</html>
